@@ -4,6 +4,7 @@ const gwtAllPosts = (req, res,next) => {
 }
 
 const AddNewPost = (req, res,next) => {
+    console.log(req.body.message);
     res.send('add a new post');
 }
 
