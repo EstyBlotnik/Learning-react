@@ -16,8 +16,15 @@ const AddNewBook = async (req, res,next) => {
         state_of_book: word
     })
     console.log(book);
-    await book.save();
-    
+    try{
+        await book.save();
+        console.log("saved in DB");
+        res.status(200).send(book);
+    }   
+    catch(err){
+        console.log(err);
+        res.status(400).send({'error': "failed"});
+    }
 }
 
 module.exports = {gwtAllBooks, AddNewBook};
