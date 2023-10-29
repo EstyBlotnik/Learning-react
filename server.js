@@ -22,6 +22,8 @@ const bookRouter = require('./routs/bookRouter.js')
 app.use('/post', postRouter)
 app.use('/book', bookRouter)
 
+app.use('/public',express.static('public'))
+
 app.get('/',(req,res)=>{
     res.send('Hello!');
 })
