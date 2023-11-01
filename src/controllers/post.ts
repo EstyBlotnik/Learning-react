@@ -9,4 +9,4 @@ const AddNewPost = (req, res,next) => {
 }
 
 
-module.exports = {gwtAllPosts,AddNewPost};
+export = {gwtAllPosts,AddNewPost};

@@ -4,8 +4,10 @@
   "description": "my first react app",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "jest --detectOpenHandles --forceExit"
+    "start": "tsc && node dist/src/app.js",
+    "test": "tsc && jest --detectOpenHandles --forceExit",
+    "lint": "eslint . --ext .ts",
+    "devstart": "nodemon ./src/app.ts"
   },
   "author": "Esty Blotnik",
   "license": "ISC",
@@ -16,8 +18,14 @@
     "mongoose": "^7.6.3"
   },
   "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "eslint": "^8.52.0",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }

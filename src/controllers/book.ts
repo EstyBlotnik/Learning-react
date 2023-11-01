@@ -1,10 +1,11 @@
 
-const Book = require('../models/book_model.js')
-const gwtAllBooks = (req, res,next) => {
+import Book from '../models/book_model';
+import { Request, Response } from 'express';
+const gwtAllBooks = (req:Request , res:Response) => {
     res.send('get all books');
 }
 
-const AddNewBook = async (req, res,next) => {
+const AddNewBook = async (req:Request , res:Response) => {
     console.log(req.body.message);
     const word = req.body.message;
     const book= new Book({
@@ -27,4 +28,4 @@ const AddNewBook = async (req, res,next) => {
     }
 }
 
-module.exports = {gwtAllBooks, AddNewBook};
+export = {gwtAllBooks, AddNewBook};

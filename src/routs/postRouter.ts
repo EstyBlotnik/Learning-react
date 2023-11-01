@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const post = require('../controllers/post.js')
+import post from '../controllers/post';
 
 router.get('/', (req, res,next) => {
     post.gwtAllPosts(req, res,next);
@@ -8,4 +8,4 @@ router.get('/', (req, res,next) => {
 
 router.post('/', post.AddNewPost);
 
-module.exports = router;
+export = router;
