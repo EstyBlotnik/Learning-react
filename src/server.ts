@@ -20,6 +20,8 @@ dotenv.config()
 
 import postRouter from './routs/postRouter';
 import bookRouter from './routs/bookRouter';
+import authRouter from './routs/authRouter';
+app.use('/auth', authRouter)
 app.use('/post', postRouter)
 app.use('/book', bookRouter)
 

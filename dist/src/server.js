@@ -20,6 +20,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const postRouter_1 = __importDefault(require("./routs/postRouter"));
 const bookRouter_1 = __importDefault(require("./routs/bookRouter"));
+const authRouter_1 = __importDefault(require("./routs/authRouter"));
+app.use('/auth', authRouter_1.default);
 app.use('/post', postRouter_1.default);
 app.use('/book', bookRouter_1.default);
 app.use('/public', express_1.default.static('public'));
