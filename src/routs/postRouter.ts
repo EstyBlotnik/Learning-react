@@ -1,11 +1,10 @@
 import express from 'express';
 const router = express.Router();
 import post from '../controllers/post';
+import auth from '../controllers/auth'
 
-router.get('/', (req, res,next) => {
-    post.gwtAllPosts(req, res,next);
-});
+router.get('/', auth.authenticateMiddleware,post.gwtAllPosts);
 
-router.post('/', post.AddNewPost);
+router.post('/', auth.authenticateMiddleware,post.AddNewPost);
 
 export = router;

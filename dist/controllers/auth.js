@@ -8,6 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+const user_model_1 = __importDefault(require("../models/user_model"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 function sendError(res, error) {
     res.status(400).send({
         'err': error
@@ -17,55 +22,59 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.body.email;
     const password = req.body.password;
     console.log(email);
-    //     if(email==null||password==null){
-    //         return sendError(res,"Please enter a valid email and password");
-    //     }
-    //     try{
-    //         const user=await Uzer.findOne({'email':email})
-    //         if(user!=null){
-    //             sendError(res,"user allredy in data base")
-    //         }
-    //     }catch(error){
-    //         console.log(error)
-    //         sendError(res,"faild1");
-    //     }
-    //     try{
-    //         const salt = await bcrypt.genSalt(10);
-    //         const encryptedPass= await bcrypt.hash(password,salt)
-    //         const newUser = new Uzer({
-    //             'email': email,
-    //             'password': encryptedPass
-    //         })
-    //         const newUser_ = await newUser.save();
-    //         res.status(200).send(newUser_.email);
-    //     }catch(err){
-    //         console.log(err)
-    //         sendError(res,"faild2");
-    //     }
-    sendError(res, "faild2");
+    if (email == null || password == null) {
+        return sendError(res, "Please enter a valid email and password");
+    }
+    try {
+        const user = yield user_model_1.default.findOne({ 'email': email });
+        if (user != null) {
+            return sendError(res, "user allredy in data base");
+        }
+    }
+    catch (error) {
+        console.log(error);
+        sendError(res, "faild1");
+    }
+    try {
+        const salt = yield bcrypt_1.default.genSalt(10);
+        const encryptedPass = yield bcrypt_1.default.hash(password, salt);
+        const newUser = new user_model_1.default({
+            'email': email,
+            'password': encryptedPass
+        });
+        const newUser_ = yield newUser.save();
+        res.status(200).send(newUser_.email);
+    }
+    catch (err) {
+        console.log(err);
+        sendError(res, "faild2");
+    }
 });
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(req.body.message);
-    // const word = req.body.message;
-    // const book= new Book({
-    //     title: req.body.message,
-    //     author: word,
-    //     publishing_year: 2023,
-    //     Published_by: word,
-    //     Summary: word,
-    //     state_of_book: word
-    // })
-    // console.log(book);
-    // try{
-    //     await book.save();
-    //     console.log("saved in DB");
-    //     res.status(200).send(book);
-    // }   
-    // catch(err){
-    //     console.log(err);
-    //     res.status(400).send({'error': "failed"});
-    // }
-    res.status(400).send({ 'error': "failed login" });
+    const email = req.body.email;
+    const password = req.body.password;
+    console.log(email);
+    console.log(password);
+    if (email == null || password == null) {
+        return sendError(res, "Please enter a valid email and password");
+    }
+    try {
+        const user = yield user_model_1.default.findOne({ 'email': email });
+        console.log(user);
+        if (user == null) {
+            return sendError(res, "imcorrect email");
+        }
+        console.log(password);
+        console.log(user.password);
+        const mach = bcrypt_1.default.compare(password, user.password);
+        if (!mach)
+            return sendError(res, "imcorrect password");
+        res.status(200).send("login sucsess!!");
+    }
+    catch (error) {
+        console.log(error);
+        return sendError(res, "faild login");
+    }
 });
 const logout = (req, res) => {
     res.status(400).send({ 'error': "failed" });

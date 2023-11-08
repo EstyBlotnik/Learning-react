@@ -8,8 +8,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
-    "password": "123456"
+    "email": "user2@gmail.com",
+    "password": "234"
 }
 
 ###
@@ -19,6 +19,7 @@ GET http://localhost:3000/post
 ###
 
 POST http://localhost:3000/post
+Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NGI3OGYxNzRlYTNhYWM4NTc4MDMzMiIsImlhdCI6MTY5OTQ0OTM1MSwiZXhwIjoxNjk5NDUyOTUxfQ.kG0SMZF8cvVIM8TrQwxs2sll8ogZXl8P43WlBbBwQV4
 Content-Type: application/json
 
 {
